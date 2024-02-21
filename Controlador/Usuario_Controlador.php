@@ -3,6 +3,9 @@ require_once "Modelo/usuario_modelo.php";
 class usuario_controlador{
 
     public function __construct(){
+        if(!isset($_SESSION["Usu_UID"])){
+            header("location:/AppMVC");
+        }
         $this->obj = new Plantilla();
     }
     public function principal(){
@@ -39,8 +42,38 @@ class usuario_controlador{
             
     }
 
-    public function frmEditar(){}
-    public function editar(){}
+    public function Frmeditar(){
+        $uid = $_GET["uid"];
+        $this-> obj-> infoUsuario = usuario_modelo::BuscarXUid($uid);
+        $this-> obj-> unirPagina("usuario/frmEditar");  
+    }
+
+    public function editar(){
+        if(isset($_POST["nombre"]) && isset($_POST["apellido"]) && isset($_POST["telefono"]) && isset($_POST["fechaNaci"]) && isset($_POST["uid"])){
+            extract ($_POST);
+            $datos["nombre"] = $nombre;
+            $datos["apellido"] = $apellido;
+            $datos["telefono"] = $telefono;
+            $datos["fechaNaci"] = $fechaNaci;
+            $datos ['uid']=$uid;
+            $res= usuario_modelo::actualizarDatos($datos);
+            if( is_array($res)){
+                echo json_encode(array("estado"=> 2, "mensaje"=>"El correo ya se encuentra registrado", "icono" => "error"));
+            }else{
+                if($nombre != null && $apellido != null && $telefono != null && $fechaNaci != null ){
+                    $res = usuario_modelo::actualizarDatos($datos);
+                    if($res>0){
+                        echo json_encode(array("estado"=> 1, "mensaje"=>"Registro Exitoso", "icono" => "success"));
+                    }
+                }else {
+                    echo json_encode(array("estado"=> 2, "mensaje"=>"Registro Incorrecto", "icono" => "error"));
+                }
+                } 
+        }
+            
+    }
+
+
 
     public function eliminar(){
         if(isset($_GET["uid"])){

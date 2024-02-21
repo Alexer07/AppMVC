@@ -105,3 +105,28 @@ let eliminar = async()=>{
         }
       });
 }
+let EditarUsuario = async () => {
+  let formUrl = "?controlador=usuario&accion=editar";
+  fd = new FormData();
+  fd.append("nombre", document.getElementById("nombre").value);
+  fd.append("apellido", document.getElementById("apellido").value);
+  fd.append("telefono", document.getElementById("telefono").value);
+  fd.append("fechaNaci", document.getElementById("fechaNaci").value);
+  fd.append("uid", document.getElementById("uid").value);
+
+
+  let respuesta = await fetch(formUrl, {
+    method: "post",
+    body: fd,
+  });
+  let info = await respuesta.json();
+  if (info.estado==1){
+    window.location.href='?controlador=usuario&accion=principal';
+  }else{
+  Swal.fire({
+    icon: info.icono,
+    title: info.mensaje,
+    timer: 2000,
+  });
+}
+};

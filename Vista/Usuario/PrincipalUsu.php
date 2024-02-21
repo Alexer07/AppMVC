@@ -22,7 +22,7 @@
                 echo"<td>".$info["Usu_Nombres"]."</td>";
                 echo"<td>".$info["Usu_Apellidos"]."</td>";
                 echo"<td>".$info["Usu_Email"]."</td>";
-                echo"<td> <a href='?controlador=usuario&accion=frmRegistrar' class='btn btn-primary'>Editar</a> |
+                echo"<td> <a href='?controlador=usuario&accion=frmEditar&uid=$uid' class='btn btn-primary'>Editar</a> |
                 <a href='?controlador=usuario&accion=eliminar&uid=$uid' class='btn btn-danger'>Eliminar</a></td>";
                 echo"</tr>";
             }
