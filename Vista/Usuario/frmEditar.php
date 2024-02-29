@@ -2,7 +2,7 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Editar de Usuario</h6>
+                            <h6 class="mb-4">Editar Usuario</h6>
                             <form method="Post" action="?controlador=usuario&accion=editar"  onsubmit="return false;" id="frm">
                                 <div class="row">
                                     <div class="col-lg-6 mt-3">

@@ -29,6 +29,10 @@
                                         <label for="exampleInputPassword1" class="form-label">Fecha de Nacimiento</label>
                                         <input type="date" class="form-control" id="fechaNaci" name="fechaNaci" placeholder="" >
                                     </div>
+                                    <div class="col-lg-6 mt-3">
+                                        <label for="exampleInputPassword1" class="form-label">Rol</label>
+                                        <input type="text" class="form-control" id="Rol" name="Rol" placeholder="">
+                                    </div>
                                                                      
                                  </div>  
                                 <button type="submit" class="btn btn-primary mt-4" onclick="registrarUsuario()">Registrar</button>  

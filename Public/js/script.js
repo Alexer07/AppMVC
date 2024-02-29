@@ -7,6 +7,7 @@ let registrarUsuario = async()=>{
     fd.append("telefono" , document.getElementById("telefono").value);
     fd.append("contraseña" , document.getElementById("contraseña").value);
     fd.append("fechaNaci" , document.getElementById("fechaNaci").value);
+    fd.append("Rol" , document.getElementById("Rol").value);
     
     let respuesta = await fetch(url,{
         method:"post",
@@ -18,10 +19,16 @@ let registrarUsuario = async()=>{
         icon: info.icono,
         title: info.mensaje,
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500   
       });
+      setTimeout(() => {
+        window.location.href="?controlador=usuario&accion=principal";
+      }, 1500);
+      
       $("#frm")[0].reset();
+      
 }
+
 
 let validarUsuario = async()=>{
 
@@ -65,46 +72,45 @@ let registrarPrograma = async()=>{
         showConfirmButton: false,
         timer: 1500
       });
+     window.location.href="?controlador=programa&accion=principal";
+    
       $("#frm")[0].reset();
 }
 let eliminar = async()=>{
-    let url="?controlador=usuario&accion=eliminar&uid=$uid";
-    
-
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success",
-          cancelButton: "btn btn-danger"
-        },
-        buttonsStyling: false
+  const bt = document.querySelector(".btn-danger[data-id]");
+  const id = bt.getAttribute("data-id");
+  const opc = bt.getAttribute("data-name");
+  console.log(id);
+  console.log(bt);
+  console.log(opc);
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "No podrás revertir esto.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, eliminar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "¡Eliminado!",
+        text: "Tu archivo ha sido eliminado.",
+        icon: "success",
+        timer: 2000,
       });
-      swalWithBootstrapButtons.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          swalWithBootstrapButtons.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success"
-          });
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire({
-            title: "Cancelled",
-            text: "Your imaginary file is safe :)",
-            icon: "error"
-          });
-        }
-      });
-}
+      if (opc == "programa") {
+        window.location.href = `?controlador=programa&accion=eliminar&id=${id}`;
+      }
+      if (opc == "usuarios") {
+        setTimeout(() => {
+          window.location.href = `?controlador=programa&accion=eliminar&id=${id}`;
+        }, 1500);
+       
+      }
+    }
+  });
+};
 let EditarUsuario = async () => {
   let formUrl = "?controlador=usuario&accion=editar";
   fd = new FormData();
@@ -129,4 +135,24 @@ let EditarUsuario = async () => {
     timer: 2000,
   });
 }
+}
+let EditarPrograma = async () => {
+  let formUrl = "?controlador=programa&accion=editar";
+  fd = new FormData();
+  fd.append("nombre", document.getElementById("nombre").value);
+  fd.append("codigo", document.getElementById("codigo").value);
+  fd.append("uid", document.getElementById("uid").value);
+
+  let respuesta = await fetch(formUrl, {
+    method: "post",
+    body: fd,
+  });
+  let info = await respuesta.json();
+  Swal.fire({
+    icon: info.icono,
+    title: info.mensaje,
+    timer: 2000,
+  });
+  window.location.href='?controlador=programa&accion=principal';
+
 };

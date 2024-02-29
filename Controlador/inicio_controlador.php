@@ -31,6 +31,7 @@ class inicio_controlador{
                     $_SESSION['Usu_Nombres'] =$res["Usu_Nombres"];
                     $_SESSION['Usu_UID'] =$res["Usu_UID"];
                     $_SESSION['Usu_ID'] =$res["Usu_ID"];
+                    $_SESSION['Usu_Rol'] =$res["Usu_Rol"];
                 }
             }
     }

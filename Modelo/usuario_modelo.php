@@ -3,23 +3,26 @@ class usuario_modelo{
     public static function registrar($info){
         $i=new Conexion();
         $con= $i->getConexion();
-        $sql= "INSERT INTO t_usuarios (Usu_UID,Usu_Nombres,Usu_Apellidos,Usu_Email,Usu_Contraseña,Usu_Telefono,Usu_FCH_NAC)
+        $sql= "INSERT INTO t_usuarios (Usu_UID,Usu_Nombres,Usu_Apellidos,Usu_Email,Usu_Contraseña,Usu_Telefono,Usu_FCH_NAC,Usu_Rol)
         VALUES
-        (?,?,?,?,?,?,?)";
+        (?,?,?,?,?,?,?,?)";
         $st=$con->prepare($sql);
         $uid= uniqid();
         $v= array(
             $uid,
             $info["nombre"]     , $info["apellido"],
             $info["email"]     , sha1($info["contraseña"]), //md5(), passaword_hash()
-            $info["telefono"]     , $info["fechaNaci"]
+            $info["telefono"]     , $info["fechaNaci"],
+            $info["Rol"]
         );
+       
         return $st->execute($v);
+
     }
-    public static function listar(){
+    public static function listar( $condicion=""){
         $i=new Conexion();
         $con= $i->getConexion();
-        $sql= "SELECT * FROM t_usuarios";
+        $sql= "SELECT * FROM t_usuarios $condicion";
         $st=$con->prepare($sql);
         $st->execute();
         return $st->fetchAll();
@@ -28,7 +31,7 @@ class usuario_modelo{
     public static function buscarXEmail($email){
         $i=new Conexion();
         $con= $i->getConexion();
-        $sql= "SELECT Usu_Nombres, Usu_Email FROM t_usuarios WHERE Usu_Email = ?";
+        $sql= "SELECT * FROM t_usuarios WHERE Usu_Email = ?";
         $st=$con->prepare($sql);
         $v = array($email);
         $st->execute($v);
