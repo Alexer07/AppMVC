@@ -29,6 +29,12 @@
                 <th scope="col">Apellido</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Rol</th>
+                <?php
+                if($_SESSION['Usu_Rol']== 1){
+                   echo" <th scope='col'>Telefono</th>";
+                   echo" <th scope='col'>Fecha de Nacimiento</th>";
+                }
+                ?>
                 <th>  </th>
             </tr>
             <?php
@@ -39,9 +45,13 @@
                 echo"<td>".$info["Usu_Apellidos"]."</td>";
                 echo"<td>".$info["Usu_Email"]."</td>";
                 echo"<td>".$info["Usu_Rol"]."</td>";
-                echo"<td> <a href='?controlador=usuario&accion=frmEditar&uid=$uid' class='btn btn-primary'>Editar</a> |
-                <button class= 'btn btn-danger name='usuarios' mt-3' data-name='usuarios' data-id='$uid' onclick='eliminar()'>Eliminar</button>";
-                echo"</tr>";
+                if($_SESSION['Usu_Rol']== 1){
+                    echo"<td>".$info["Usu_Telefono"]."</td>";
+                    echo"<td>".$info["Usu_FCH_NAC"]."</td>";
+                    echo"<td> <a href='?controlador=usuario&accion=frmEditar&uid=$uid' class='btn btn-primary'>Editar</a> |
+                    <button class= 'btn btn-danger name='usuarios' mt-3' data-name='usuarios' data-id='$uid' onclick='eliminar()'>Eliminar</button>";
+                    echo"</tr>";
+                }
             }
             ?>
             </table>

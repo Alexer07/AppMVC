@@ -79,10 +79,7 @@ let registrarPrograma = async()=>{
 let eliminar = async()=>{
   const bt = document.querySelector(".btn-danger[data-id]");
   const id = bt.getAttribute("data-id");
-  const opc = bt.getAttribute("data-name");
-  console.log(id);
-  console.log(bt);
-  console.log(opc);
+  const opc = bt.getAttribute("data-name")
   Swal.fire({
     title: "¿Estás seguro?",
     text: "No podrás revertir esto.",
@@ -156,3 +153,22 @@ let EditarPrograma = async () => {
   window.location.href='?controlador=programa&accion=principal';
 
 };
+
+let registrarUsuPro = async()=>{
+  let formUrl = "?controlador=Usupro&accion=registrar";
+  fd = new FormData();
+  fd.append("nombre", document.getElementById("nombre").value);
+  fd.append("codigo", document.getElementById("codigo").value);
+
+  let respuesta = await fetch(formUrl, {
+    method: "post",
+    body: fd,
+  });
+  let info = await respuesta.json();
+  Swal.fire({
+    icon: info.icono,
+    title: info.mensaje,
+    timer: 2000,
+  });
+  window.location.href='?controlador=usupro&accion=principal';
+}

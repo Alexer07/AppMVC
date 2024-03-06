@@ -17,7 +17,7 @@
                 echo"<tr>";
                 echo"<td>".$info["Pro_Nombre"]."</td>";
                 echo"<td>".$info["Pro_Codigo"]."</td>";
-                echo"<td> <a href='?controlador=programa&accion=frmEditar&uid=$uid' class='btn btn-primary'>Editar</a> | <a href='?controlador=programa&accion=frmRegistrar' class='btn btn-primary'>Eliminar</a> </td>";
+                echo"<td> <a href='?controlador=programa&accion=frmEditar&uid=$uid' class='btn btn-primary'>Editar</a> | <a href='?controlador=programa&accion=frmRegistrar' class='btn btn-danger'>Eliminar</a> </td>";
                 echo"</tr>";
             }
             ?>
